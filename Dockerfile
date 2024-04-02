@@ -24,6 +24,10 @@ FROM alpine
 # 安装基本的运行时依赖
 RUN apk --no-cache add ca-certificates tzdata
 
+# 将环境变量中的 BOT_CONFIG 配置保存到 data/config/bot_config.json 文件中
+RUN mkdir -p /app/coze-discord-proxy/data/config && chmod 777 /app/coze-discord-proxy/data/config
+RUN printf '%s' "$BOT_CONFIG" | sed 's/\\/"/g' > /app/coze-discord-proxy/data/config/bot_config.json
+
 # 从构建阶段复制可执行文件
 COPY --from=builder /coze-discord-proxy .
 

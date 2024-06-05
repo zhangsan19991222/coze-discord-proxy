@@ -10,9 +10,11 @@ _代理`Discord`对话`Coze-Bot`，实现以API形式请求GPT4模型，提供�
 
 _觉得有点意思的话 别忘了点个🌟_
 
-🐞<a href="https://t.me/+LGKwlC_xa-E5ZDk9" style="font-size: 15px;">CDP项目-交流群</a>(群内有详细教程)
+📄<a href="https://cdp-docs.pages.dev" style="font-size: 15px;">CDP项目文档站</a>(必看教程)
 
-📢<a href="https://t.me/+0fYkYY_zUZYzNzRl" style="font-size: 15px;">CDP项目-通知频道</a>(频道内有详细教程)
+🐞<a href="https://t.me/+LGKwlC_xa-E5ZDk9" style="font-size: 15px;">CDP项目-交流群</a>(交流)
+
+📢<a href="https://t.me/+0fYkYY_zUZYzNzRl" style="font-size: 15px;">CDP项目-通知频道</a>(通知)
 
 
 </div>
@@ -49,7 +51,7 @@ _觉得有点意思的话 别忘了点个🌟_
 5. 创建新应用-Bot即`CDP-BOT`,并记录该bot专属的`token(BOT_TOKEN)`,此bot为监听discord消息的bot。
 6. 两个bot开通对应权限(`Administrator`)并邀请进创建好的discord服务器 (过程不在此赘述)。
 7. 打开 [discord官网](https://discord.com/app)进入服务器,按F12打开开发者工具,在任一频道内发送一次消息,在开发者工具-`Network`中找到请求 `https://discord.com/api/v9/channels/1206*******703/messages`从该接口header中获取`Authorization(USER_AUTHORIZATION)`并记录。
-8. 打开 [coze官网](https://www.coze.com) 创建bot并进行个性化配置(注意`Auto-Suggestion`为`on`(默认不用改))。
+8. 打开 [coze官网](https://www.coze.com) 创建bot并进行个性化配置(注意`Auto-Suggestion`为`Default/on`(默认不用改))。
 9. 配置好后选择发布到discord,填写`COZE-BOT`的`token`,发布完成后在discord服务器中可看到`COZE-BOT`在线并可以@使用。
 10. 使用上述记录的参数开始配置[环境变量](#环境变量)并[部署](#部署)本项目。
 11. 访问接口文档地址,即可开始调试或集成其他项目。
@@ -118,7 +120,7 @@ deanxv/coze-discord-proxy
 
 其中`USER_AUTHORIZATION`,`BOT_TOKEN`,`GUILD_ID`,`COZE_BOT_ID`,`PROXY_SECRET`,`CHANNEL_ID`修改为自己的。
 
-如果上面的镜像无法拉取,可以尝试使用 GitHub 的 Docker 镜像,将上面的 `deanxv/coze-discord-proxy`替换为 `ghcr.io/deanxv/coze-discord-proxy` 即可。
+如果上面的镜像无法拉取,可以尝试使用 GitHub 的 Docker 镜像,将上面的`deanxv/coze-discord-proxy`替换为`ghcr.io/deanxv/coze-discord-proxy`即可。
 
 ### 部署到第三方平台
 
@@ -193,7 +195,7 @@ Render 可以直接部署 docker 镜像,不需要 fork 仓库：[Render](https:/
 13. `COZE_BOT_STAY_ACTIVE_ENABLE=1`  [可选]是否开启每日`9`点活跃coze-bot的定时任务[0:否;1:是] (默认为1),**推荐不使用此环境变量**
 14. `REQUEST_OUT_TIME=60`  [可选]对话接口非流响应下的请求超时时间,**推荐不使用此环境变量**
 15. `STREAM_REQUEST_OUT_TIME=60`  [可选]对话接口流响应下的每次流返回超时时间,**推荐不使用此环境变量**
-16. `REQUEST_RATE_LIMIT=60`  [可选]每分钟下的请求速率限制,默认:60次/min
+16. `REQUEST_RATE_LIMIT=60`  [可选]每分钟下的单ip请求速率限制,默认:60次/min
 17. `USER_AGENT=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36`  [可选]discord用户端Agent,使用自己的可能有效防止被ban,不设置时默认使用作者的 推荐使用此环境变量
 18. `NOTIFY_TELEGRAM_BOT_TOKEN=6232***********Niz9c`  [可选]作为通知TelegramBot的Token(通知事件:1.无可用`user_authorization`;2.`BOT_TOKEN`关联的BOT触发风控)
 19. `NOTIFY_TELEGRAM_USER_ID=10******35`  [可选]`NOTIFY_TELEGRAM_BOT_TOKEN`关联的`Telegram-Bot`推送至该变量关联的`Telegram-User`(**`NOTIFY_TELEGRAM_BOT_TOKEN`不为空时该变量也不可为空**)
@@ -257,13 +259,17 @@ A: 首先为服务[配置多机器人](#配置多机器人)用来作响应bot的
 
 [![Star History Chart](https://api.star-history.com/svg?repos=deanxv/coze-discord-proxy&type=Date)](https://star-history.com/#deanxv/coze-discord-proxy&Date)
 
-## 其他版本
+## 相关
 
-**开源不易,若你参考此项目或基于此项目二开可否麻烦在你的项目文档中标识此项目呢？谢谢你！♥♥♥**
+[GPT-Content-Audit](https://github.com/deanxv/gpt-content-audit):聚合Openai、阿里云、百度智能云、七牛云等开放平台，提供与`openai`请求格式对齐的内容审核前置服务。
+
+## 其他
+
+**开源不易,若你参考此项目或基于此项目二开可否麻烦在你的项目文档中标识此项目呢？谢谢你！**
 
 Java: https://github.com/oddfar/coze-discord (目前不可用)
 
-## 其他引用
+## 引用
 
 Coze 官网 : https://www.coze.com
 

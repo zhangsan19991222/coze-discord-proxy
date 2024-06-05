@@ -10,11 +10,11 @@ _Act as a proxy for the Discord conversation Coze-Bot, implementing the GPT-4 mo
 
 _If you find it interesting, don't forget to hit the 🌟_
 
-🐞<a href="https://t.me/+LGKwlC_xa-E5ZDk9" style="font-size: 15px;">CDP Project-Discussion Group</a>(Detailed tutorial in
-the group)
+📄<a href="https://cdp-docs.pages.dev" style="font-size: 15px;">CDP Project Documentation Site</a>(Must-See Tutorial)
 
-📢<a href="https://t.me/+0fYkYY_zUZYzNzRl" style="font-size: 15px;">CDP Project-Notification Channel</a>(Detailed
-tutorial in the channel)
+🐞<a href="https://t.me/+LGKwlC_xa-E5ZDk9" style="font-size: 15px;">CDP Project-Discussion Group</a>(Communication)
+
+📢<a href="https://t.me/+0fYkYY_zUZYzNzRl" style="font-size: 15px;">CDP Project-Notification Channel</a>(Notification)
 
 
 </div>
@@ -51,7 +51,7 @@ tutorial in the channel)
 5. Create a new application-Bot, which is `CDP-BOT`, and record the `token (BOT_TOKEN)` specific to this bot. This bot is the bot that listens to discord messages.
 6. Both bots open corresponding permissions (`Administrator`) and invite them into the created discord server (the process is not detailed here).
 7. Open [Discord official website](https://discord.com/app), enter the server, press F12 to open the developer tool, send a message in any channel, find the request `https://discord.com/api/v9/channels/1206*******703/messages` in Developer Tools-`Network`, get `Authorization(USER_AUTHORIZATION)` from the header of this interface and record it.
-8. Open [Coze official website](https://www.coze.com) to create a bot and make personalized settings (note `Auto-Suggestion` is `on` (default does not need to be changed)).
+8. Open [Coze official website](https://www.coze.com) to create a bot and make personalized settings (note `Auto-Suggestion` is `Default/on` (default does not need to be changed)).
 9. After the configuration is completed, choose to publish to discord, fill in the `token` of `COZE-BOT`, after the publication is completed, you can see `COZE-BOT` online and can be used in the discord server.
 10. Use the parameters recorded above to start configuring [environment variables](#Environment Variables)and [deploy](#Deployment) this project.
 11. Visit the API documentation address, you can start debugging or integrating other projects.
@@ -197,7 +197,7 @@ Render can directly deploy docker images, no need to fork the repository: [Rende
 13. `COZE_BOT_STAY_ACTIVE_ENABLE=1` - [Optional] Enable the daily task of keeping the Coze-bot active at `9` o'clock [0: No; 1: Yes] (default is 1), **not recommended to use this environment variable**
 14. `REQUEST_OUT_TIME=60` - [Optional] Request timeout for non-stream response in dialogue interface, **not recommended to use this environment variable**
 15. `STREAM_REQUEST_OUT_TIME=60` - [Optional] Stream return timeout for each stream response in dialogue interface, **not recommended to use this environment variable**
-16. `REQUEST_RATE_LIMIT=60` - [Optional] Request rate limit per minute, default: 60 requests/min
+16. `REQUEST_RATE_LIMIT=60` - [Optional] Limit the request rate of single IP per minute, default: 60 requests/min
 17. `USER_AGENT=Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36` - [Optional] Discord user agent. Using your own may effectively prevent being banned. If not set, the author's default will be used. It is recommended to use this environment variable.
 18. `NOTIFY_TELEGRAM_BOT_TOKEN=6232***********Niz9c` [Optional] Functions as the token for the TelegramBot notification (Notification events include: 1. Unavailability of user_authorization; 2. Risk control trigger by the BOT associated with BOT_TOKEN)
 19. `NOTIFY_TELEGRAM_USER_ID=10******35` [Optional] The Telegram-Bot linked with NOTIFY_TELEGRAM_BOT_TOKEN forwards notifications to the Telegram-User associated with this variable (This variable must not be empty when NOTIFY_TELEGRAM_BOT_TOKEN is populated)

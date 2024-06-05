@@ -42,6 +42,10 @@ definitions:
         type: string
       object:
         type: string
+      suggestions:
+        items:
+          type: string
+        type: array
       system_fingerprint:
         type: string
       usage:
@@ -49,7 +53,7 @@ definitions:
     type: object
   model.OpenAIChatMessage:
     properties:
-      content: {}
+      content: { }
       role:
         type: string
     type: object
@@ -71,6 +75,15 @@ definitions:
       content:
         type: string
     type: object
+  model.OpenAIImagesGenerationDataResponse:
+    properties:
+      b64_json:
+        type: string
+      revised_prompt:
+        type: string
+      url:
+        type: string
+    type: object
   model.OpenAIImagesGenerationRequest:
     properties:
       channelId:
@@ -78,6 +91,8 @@ definitions:
       model:
         type: string
       prompt:
+        type: string
+      response_format:
         type: string
     type: object
   model.OpenAIImagesGenerationResponse:
@@ -88,10 +103,11 @@ definitions:
         type: boolean
       data:
         items:
-          properties:
-            url:
-              type: string
-          type: object
+          $ref: '#/definitions/model.OpenAIImagesGenerationDataResponse'
+        type: array
+      suggestions:
+        items:
+          type: string
         type: array
     type: object
   model.OpenAIMessage:
@@ -110,6 +126,22 @@ definitions:
       total_tokens:
         type: integer
     type: object
+  model.OpenaiModelListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/model.OpenaiModelResponse'
+        type: array
+      object:
+        type: string
+    type: object
+  model.OpenaiModelResponse:
+    properties:
+      id:
+        type: string
+      object:
+        type: string
+    type: object
   model.ThreadReq:
     properties:
       archiveDuration:
@@ -127,7 +159,7 @@ definitions:
         type: string
     type: object
 info:
-  contact: {}
+  contact: { }
   description: COZE-DISCORD-PROXY 代理服务
   title: COZE-DISCORD-PROXY
   version: 1.0.0
@@ -135,17 +167,17 @@ paths:
   /api/channel/create:
     post:
       consumes:
-      - application/json
+        - application/json
       description: 创建频道
       parameters:
-      - description: channelModel
-        in: body
-        name: channelModel
-        required: true
-        schema:
-          $ref: '#/definitions/model.ChannelReq'
+        - description: channelModel
+          in: body
+          name: channelModel
+          required: true
+          schema:
+            $ref: '#/definitions/model.ChannelReq'
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: Successful response
@@ -153,20 +185,20 @@ paths:
             $ref: '#/definitions/model.ChannelResp'
       summary: 创建频道
       tags:
-      - channel
+        - channel
   /api/channel/del/{id}:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 删除频道
       parameters:
-      - description: id
-        in: path
-        name: id
-        required: true
-        type: string
+        - description: id
+          in: path
+          name: id
+          required: true
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: Successful response
@@ -174,14 +206,14 @@ paths:
             type: string
       summary: 删除频道
       tags:
-      - channel
+        - channel
   /api/del/all/cdp:
     get:
       consumes:
-      - application/json
+        - application/json
       description: 删除全部CDP临时频道[谨慎调用]
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: Successful response
@@ -189,21 +221,21 @@ paths:
             type: string
       summary: 删除全部CDP临时频道[谨慎调用]
       tags:
-      - channel
+        - channel
   /api/thread/create:
     post:
       consumes:
-      - application/json
+        - application/json
       description: 创建线程
       parameters:
-      - description: threadModel
-        in: body
-        name: threadModel
-        required: true
-        schema:
-          $ref: '#/definitions/model.ThreadReq'
+        - description: threadModel
+          in: body
+          name: threadModel
+          required: true
+          schema:
+            $ref: '#/definitions/model.ThreadReq'
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: Successful response
@@ -211,29 +243,29 @@ paths:
             $ref: '#/definitions/model.ThreadResp'
       summary: 创建线程
       tags:
-      - thread
+        - thread
   /v1/chat/completions:
     post:
       consumes:
-      - application/json
+        - application/json
       description: 发送消息-openai
       parameters:
-      - description: request
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/model.OpenAIChatCompletionRequest'
-      - description: Authorization
-        in: header
-        name: Authorization
-        type: string
-      - description: out-time
-        in: header
-        name: out-time
-        type: string
+        - description: request
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/model.OpenAIChatCompletionRequest'
+        - description: Authorization
+          in: header
+          name: Authorization
+          type: string
+        - description: out-time
+          in: header
+          name: out-time
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: Successful response
@@ -241,29 +273,29 @@ paths:
             $ref: '#/definitions/model.OpenAIChatCompletionResponse'
       summary: 发送消息-openai
       tags:
-      - openai
+        - openai
   /v1/images/generations:
     post:
       consumes:
-      - application/json
+        - application/json
       description: 图片生成-openai
       parameters:
-      - description: request
-        in: body
-        name: request
-        required: true
-        schema:
-          $ref: '#/definitions/model.OpenAIImagesGenerationRequest'
-      - description: Authorization
-        in: header
-        name: Authorization
-        type: string
-      - description: out-time
-        in: header
-        name: out-time
-        type: string
+        - description: request
+          in: body
+          name: request
+          required: true
+          schema:
+            $ref: '#/definitions/model.OpenAIImagesGenerationRequest'
+        - description: Authorization
+          in: header
+          name: Authorization
+          type: string
+        - description: out-time
+          in: header
+          name: out-time
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: Successful response
@@ -271,5 +303,25 @@ paths:
             $ref: '#/definitions/model.OpenAIImagesGenerationResponse'
       summary: 图片生成-openai
       tags:
-      - openai
+        - openai
+  /v1/models:
+    get:
+      consumes:
+        - application/json
+      description: 模型列表-openai
+      parameters:
+        - description: Authorization
+          in: header
+          name: Authorization
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successful response
+          schema:
+            $ref: '#/definitions/model.OpenaiModelListResponse'
+      summary: 模型列表-openai
+      tags:
+        - openai
 swagger: "2.0"

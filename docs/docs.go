@@ -229,6 +229,37 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/v1/models": {
+            "get": {
+                "description": "模型列表-openai",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "openai"
+                ],
+                "summary": "模型列表-openai",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Authorization",
+                        "name": "Authorization",
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful response",
+                        "schema": {
+                            "$ref": "#/definitions/model.OpenaiModelListResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -298,6 +329,12 @@ const docTemplate = `{
                 "object": {
                     "type": "string"
                 },
+                "suggestions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
                 "system_fingerprint": {
                     "type": "string"
                 },
@@ -343,6 +380,20 @@ const docTemplate = `{
                 }
             }
         },
+        "model.OpenAIImagesGenerationDataResponse": {
+            "type": "object",
+            "properties": {
+                "b64_json": {
+                    "type": "string"
+                },
+                "revised_prompt": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        },
         "model.OpenAIImagesGenerationRequest": {
             "type": "object",
             "properties": {
@@ -353,6 +404,9 @@ const docTemplate = `{
                     "type": "string"
                 },
                 "prompt": {
+                    "type": "string"
+                },
+                "response_format": {
                     "type": "string"
                 }
             }
@@ -369,12 +423,13 @@ const docTemplate = `{
                 "data": {
                     "type": "array",
                     "items": {
-                        "type": "object",
-                        "properties": {
-                            "url": {
-                                "type": "string"
-                            }
-                        }
+                        "$ref": "#/definitions/model.OpenAIImagesGenerationDataResponse"
+                    }
+                },
+                "suggestions": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
                     }
                 }
             }
@@ -401,6 +456,31 @@ const docTemplate = `{
                 },
                 "total_tokens": {
                     "type": "integer"
+                }
+            }
+        },
+        "model.OpenaiModelListResponse": {
+            "type": "object",
+            "properties": {
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.OpenaiModelResponse"
+                    }
+                },
+                "object": {
+                    "type": "string"
+                }
+            }
+        },
+        "model.OpenaiModelResponse": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "object": {
+                    "type": "string"
                 }
             }
         },
